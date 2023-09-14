@@ -51,7 +51,7 @@
         <img src="{{ public_path('/assets/images/pdf/kop.png') }}" class="img"/>
     </div>
 
-
+    <p>Data absensi pada {{ $tanggal }}</p>
     <table class="table">
         <thead>
             <tr>
@@ -65,15 +65,6 @@
             </tr>
         </thead>
         <tbody>
-            {{-- <tr>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-            </tr> --}}
             @foreach ($data as $item)
             <tr>
                 <td>{{ $loop->index + 1 }}</td>

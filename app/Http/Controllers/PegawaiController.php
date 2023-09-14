@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Absen;
 use App\Models\Seksi;
 use App\Models\Bidang;
 use App\Models\Jabatan;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class PegawaiController extends Controller
 {
@@ -130,9 +133,20 @@ class PegawaiController extends Controller
      */
     public function destroy(Pegawai $data_pegawai)
     {
-        $data_pegawai->delete();
         $username = str_replace(' ', '_', strtolower($data_pegawai->namaLengkap));
         User::deleteByUsername($username);
+
+        $Absen = Absen::where('pegawai_id', $data_pegawai->id)->get();
+        foreach ($Absen as $item) {
+            $image_path = public_path('storage/photos/' . $item->photo);
+            if (File::exists($image_path)) {
+                File::delete($image_path);
+            }
+            $item->delete();
+        }
+
+
+        $data_pegawai->delete();
         return response()->json();
     }
 }

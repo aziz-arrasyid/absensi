@@ -99,6 +99,8 @@ class dashboardAdminController extends Controller
 
         $dataAbsen = Absen::whereIn('absensi_id', $dataAbsensi)->get();
 
+        $tanggal = Carbon::parse($tanggal)->format('j F Y');
+
         $PDF = Pdf::loadView('layouts.pdfTemplate', [
             'data' => $dataAbsen,
             'tanggal' => $tanggal,

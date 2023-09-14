@@ -119,7 +119,7 @@
                     table.empty(); // Kosongkan isi tabel
 
                     // Tambahkan header tabel
-                    var tableHeader = '<thead><tr><th>no</th><th>Tanggal</th></tr></thead>';
+                    var tableHeader = '<thead><tr><th>no</th><th>Tanggal</th><th>Action</th></tr></thead>';
                     table.append(tableHeader);
 
                     // Tambahkan data ke dalam tabel
@@ -140,7 +140,7 @@
                             const tanggal = currentDate.toLocaleDateString('id-ID', options);
                             tableBody += '<tr><td>' + (index + 1) + '</td><td>' + tanggal + '</td>' +
                                 '<td>' +
-                                '<a class="button btn button-icon bg-info deleteData" data-id="' + item.id + '" href="{{ route('OnePDF', ['tanggal' => '+item.tanggal+']) }}">Rekap</a>' +
+                                '<a class="button btn button-icon bg-info deleteData" data-id="' + item.id + '" href="/dashboard-admin/OnePDF/' + item.tanggal + '">Rekap</a>' +
                                 '</div>' +
                                 '</td>' +
                                 '</tr>';

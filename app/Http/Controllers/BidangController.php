@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bidang;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -91,6 +92,7 @@ class BidangController extends Controller
      */
     public function destroy(Bidang $data_bidang)
     {
+        Pegawai::where('jabatan_id', $data_bidang->id)->delete();
         $data_bidang->delete();
         return response()->json();
     }

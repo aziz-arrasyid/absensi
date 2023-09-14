@@ -5,6 +5,9 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>{{ $title }}</title>
 
+      {{-- link Css --}}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css">
+
       <!-- Favicon -->
       <link rel="shortcut icon" href="{{ asset('/assets/images/favicon.ico') }}" />
       <link rel="stylesheet" href="{{ asset('/assets/css/backend-plugin.min.css') }}">
@@ -45,5 +48,10 @@
     <script src="{{ asset('/assets/js/app.js') }}"></script>
 
     <script src="{{ asset('/assets/vendor/moment.min.js') }}"></script>
+
+    {{-- link JavaScript --}}
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
+
   </body>
+  @stack('scripts')
 </html>

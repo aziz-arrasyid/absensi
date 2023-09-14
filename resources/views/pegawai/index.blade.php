@@ -13,10 +13,10 @@
                         <h3><span class="counter">{{ $jumlahHadir }}</span></h3>
                         <div class="d-flex align-items-center justify-content-between mt-1">
                             <p class="mb-0">Total Persentase</p>
-                            <span class="text-primary">{{ ($jumlahHadir / ($jumlahHadir + $jumlahIzin + $jumlahSakit)) * 100 }}%</span>
+                            <span class="text-primary">{{ $jumlahHadir > 0 ? ($jumlahHadir / ($jumlahHadir + $jumlahIzin + $jumlahSakit)) * 100 : '0' }}%</span>
                         </div>
                         <div class="iq-progress-bar bg-primary-light mt-2">
-                            <span class="bg-primary iq-progress progress-1" data-percent="{{ ($jumlahHadir / ($jumlahHadir + $jumlahIzin + $jumlahSakit)) * 100 }}"></span>
+                            <span class="bg-primary iq-progress progress-1" data-percent="{{ $jumlahHadir > 0 ? ($jumlahHadir / ($jumlahHadir + $jumlahIzin + $jumlahSakit)) * 100 : '0' }}"></span>
                         </div>
                     </div>
                 </div>
@@ -31,10 +31,10 @@
                     <h3><span class="counter">{{ $jumlahSakit }}</span></h3>
                     <div class="d-flex align-items-center justify-content-between mt-1">
                         <p class="mb-0">Total Persentase</p>
-                        <span class="text-warning">{{ ($jumlahSakit / ($jumlahHadir + $jumlahIzin + $jumlahSakit)) * 100 }}%</span>
+                        <span class="text-warning">{{ $jumlahSakit > 0 ? ($jumlahSakit / ($jumlahHadir + $jumlahIzin + $jumlahSakit)) * 100 : '0' }}%</span>
                     </div>
                     <div class="iq-progress-bar bg-warning-light mt-2">
-                        <span class="bg-warning iq-progress progress-1" data-percent="{{ ($jumlahSakit / ($jumlahHadir + $jumlahIzin + $jumlahSakit)) * 100 }}"></span>
+                        <span class="bg-warning iq-progress progress-1" data-percent="{{ $jumlahSakit > 0 ? ($jumlahSakit / ($jumlahHadir + $jumlahIzin + $jumlahSakit)) * 100 : '0' }}"></span>
                     </div>
                 </div>
             </div>
@@ -49,10 +49,10 @@
                     <h3><span class="counter">{{ $jumlahIzin }}</span></h3>
                     <div class="d-flex align-items-center justify-content-between mt-1">
                         <p class="mb-0">Total Persentase</p>
-                        <span class="text-danger">{{ ($jumlahIzin / ($jumlahHadir + $jumlahIzin + $jumlahSakit)) * 100 }}%</span>
+                        <span class="text-danger">{{ $jumlahIzin > 0 ? ($jumlahIzin / ($jumlahHadir + $jumlahIzin + $jumlahSakit)) * 100 : '0' }}%</span>
                     </div>
                     <div class="iq-progress-bar bg-danger-light mt-2">
-                        <span class="bg-danger iq-progress progress-1" data-percent="{{ ($jumlahIzin / ($jumlahHadir + $jumlahIzin + $jumlahSakit)) * 100 }}"></span>
+                        <span class="bg-danger iq-progress progress-1" data-percent="{{ $jumlahIzin > 0 ? ($jumlahIzin / ($jumlahHadir + $jumlahIzin + $jumlahSakit)) * 100 : '0' }}"></span>
                     </div>
                 </div>
             </div>
@@ -61,3 +61,23 @@
     <!-- Page end  -->
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        // toastr berhasil start
+        @if(Session('login'))
+        toastr.success('{{ session('login') }}');
+        @endif
+        // toastr berhasil end
+
+        //toastr gagal start
+        @if($errors->any())
+        @foreach($errors->all() as $error)
+        toastr.error('{{ $error }}');
+        @endforeach
+        @endif
+        // toastr gagal end
+    })
+</script>
+@endpush

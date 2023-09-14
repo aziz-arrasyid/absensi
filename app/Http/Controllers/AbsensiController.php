@@ -6,6 +6,7 @@ use App\Models\Absen;
 use App\Models\Absensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class AbsensiController extends Controller
 {
@@ -95,6 +96,15 @@ class AbsensiController extends Controller
      */
     public function destroy(Absensi $data_absensi)
     {
+        $Absen = Absen::where('absensi_id', $data_absensi->id)->get();
+        foreach ($Absen as $item) {
+            $image_path = public_path('storage/photos/' . $item->photo);
+            if (File::exists($image_path)) {
+                File::delete($image_path);
+            }
+            $item->delete();
+        }
+
         $data_absensi->delete();
         return response()->json();
     }

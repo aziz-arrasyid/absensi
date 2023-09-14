@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Seksi;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -92,6 +93,7 @@ class SeksiController extends Controller
      */
     public function destroy(Seksi $data_seksi)
     {
+        Pegawai::where('id', $data_seksi->id)->delete();
         $data_seksi->delete();
         return response()->json();
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -90,6 +91,7 @@ class JabatanController extends Controller
      */
     public function destroy(Jabatan $data_jabatan)
     {
+        Pegawai::where('jabatan_id', $data_jabatan->id)->delete();
         $data_jabatan->delete();
         return response()->json();
     }

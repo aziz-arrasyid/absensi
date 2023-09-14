@@ -17,13 +17,13 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="floating-label form-group">
-                                                    <input class="floating-input form-control" name="username" required type="text" placeholder=" ">
+                                                    <input class="floating-input form-control" name="username" type="text" placeholder=" ">
                                                     <label>username</label>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="floating-label form-group">
-                                                    <input class="floating-input form-control" name="password" required type="password" placeholder=" ">
+                                                    <input class="floating-input form-control" name="password" type="password" placeholder=" ">
                                                     <label>Password</label>
                                                 </div>
                                             </div>
@@ -43,3 +43,21 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        @if(Session('errorSalah'))
+        toastr.error('{{ session('errorSalah') }}');
+        @endif
+
+        //toastr gagal start
+        @if($errors->any())
+        @foreach($errors->all() as $error)
+        toastr.error('{{ $error }}');
+        @endforeach
+        @endif
+        // toastr gagal end
+    })
+</script>
+@endpush
