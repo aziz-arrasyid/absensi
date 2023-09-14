@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Bidang;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
@@ -92,7 +93,10 @@ class BidangController extends Controller
      */
     public function destroy(Bidang $data_bidang)
     {
-        Pegawai::where('jabatan_id', $data_bidang->id)->delete();
+        $pegawai = Pegawai::where('bidang_id', $data_bidang->id)->first();
+        $name = str_replace(' ', '_', strtolower($pegawai->namaLengkap));
+        User::where('username', $name)->delete();
+        $pegawai->delete();
         $data_bidang->delete();
         return response()->json();
     }

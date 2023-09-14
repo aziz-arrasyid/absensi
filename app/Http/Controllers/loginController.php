@@ -30,7 +30,7 @@ class loginController extends Controller
         );
 
         if (auth()->attempt(['username' => $input['username'], 'password' => $input['password']])) {
-            $name = str_replace('_', '', str_replace('_', ' ', strtolower(Auth::user()->username)));
+            $name = str_replace('_', '', strtolower(Auth::user()->username));
             if (auth()->user()->role == 'admin') {
                 return redirect()->route('admin')->with('login', 'Selamat datang '. $name);
             } elseif (auth()->user()->role == 'pegawai') {
