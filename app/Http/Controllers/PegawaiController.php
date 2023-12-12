@@ -66,6 +66,10 @@ class PegawaiController extends Controller
             ]
         );
 
+        if(Pegawai::where('regNumber', $request->regNumber)->exists()){
+            return redirect()->back()->with('error','Nomor unik sudah dimilki sama pegawai lain');
+        }
+
         $pegawai = Pegawai::create($request->all());
         User::create([
             'username' => str_replace(' ', '_', strtolower($pegawai->namaLengkap)),
@@ -115,6 +119,12 @@ class PegawaiController extends Controller
                 'namaLengkap.required' => 'Data Nama Lengkap tidak boleh kosong',
             ]
         );
+
+        if(Pegawai::where('regNumber', $request->regNumber)->where('regNumber', '!=', $data_pegawai->regNumber)->exists()){
+            return response()->json([
+                'error' => 'Nomor unik sudah dimilki sama pegawai lain',
+            ], 422);
+        }
 
         $namaLengkap = $request->input('namaLengkap');
         $user = User::where('username', str_replace(' ', '_', strtolower($data_pegawai->namaLengkap)))->first();

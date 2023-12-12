@@ -21,3 +21,5 @@ class Absen extends Model
         return $this->belongsTo(Absensi::class);
     }
 }
+
+ 

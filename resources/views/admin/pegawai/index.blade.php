@@ -182,7 +182,7 @@
         // deklarasi variable global end
 
         //fungsi delete
-        $('.deleteData').on('click', function(event) {
+        $(document).on('click', '.deleteData', function(event) {
             event.preventDefault();
             Swal.fire({
                 title: 'Apa kamu ingin hapus data?',
@@ -216,7 +216,7 @@
         // fungsi edit start
 
         //fungsi ketika btn edit di click start
-        $('.editData').on('click', function() {
+        $(document).on('click', '.editData', function() {
             data_pegawai = $(this).data('id');
 
             // fungsi pengambilan data dan ditampilkan start
@@ -282,9 +282,15 @@
                         }
                         errorMessage += errorMessages[field][0];
                     }
-                    Swal.fire('Data gagal di edit', errorMessage, 'error').then(() => {
-                        modal.modal('show');
-                    });
+                    if(error.response.data.error){
+                        Swal.fire('Data gagal di edit', error.response.data.error, 'error').then(() => {
+                            modal.modal('show');
+                        });
+                    }else{
+                        Swal.fire('Data gagal di edit', errorMessage, 'error').then(() => {
+                            modal.modal('show');
+                        });
+                    }
                 }else{
                     Swal.fire('Data gagal di edit', 'Terjadi kesalahan pada sisi server, hubungi kami segera', 'error');
                 }
@@ -308,6 +314,11 @@
         @endforeach
         @endif
         // toastr gagal end
+
+        //toastr jika nama sama
+        @if(Session('error'))
+        toastr.error('{{ Session('error') }}');
+        @endif
     });
 </script>
 @endpush
